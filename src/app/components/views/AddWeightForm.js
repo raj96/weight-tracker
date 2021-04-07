@@ -16,12 +16,12 @@ import { useState } from "react";
 
 import firebase from "firebase/app";
 
-function AddWeightForm({ onClose, theme, user }) {
+function AddWeightForm({ onClose, theme, user, firestore }) {
   const addEntry = () => {
     if (weight === undefined || weight.replaceAll("\\s", "").length === 0)
       return;
 
-    const inserted = firebase.firestore
+    const inserted = firestore
       .collection("weights")
       .doc(user.uid)
       .collection("weight")

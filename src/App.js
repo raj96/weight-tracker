@@ -83,7 +83,7 @@ function App() {
           data.push({
             ...doc.data(),
             docID: doc.id,
-            date: doc.data().created_on.toDate(),
+            date: doc.data()?.created_on?.toDate(),
           })
         );
         setWtData(data);
@@ -132,7 +132,11 @@ function App() {
         }}
       >
         <Fade in={modalOpen}>
-          <AddWeightForm onClose={handleClose} user={user} />
+          <AddWeightForm
+            onClose={handleClose}
+            user={user}
+            firestore={firestore}
+          />
         </Fade>
       </Modal>
     </ThemeProvider>
