@@ -40,7 +40,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Navbar from "./app/components/common/Navbar";
 import SignInForm from "./app/components/views/SignInForm";
-import AppHeader from "./app/components/views/AppScreen/AppHeader";
+import AppHeaderActions from "./app/components/views/AppScreen/AppHeaderActions";
 import AddWeightForm from "./app/components/views/AddWeightForm";
 
 var firebaseConfig = {
@@ -144,19 +144,17 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
   const [dataViewType, setDataViewType] = useState("graph");
 
   return (
-    <Card style={{ width: "70vw", marginTop: "2%" }}>
+    <Card elevation={0} style={{ width: "100vw", marginTop: "2%" }}>
       <CardHeader
-        title={<Typography variant="h5">Welcome, {firstName}</Typography>}
-        action={
-          <AppHeader
-            dataViewType={dataViewType}
-            setDataViewType={setDataViewType}
-            onAddEntryClick={onAddEntryClick}
-          />
-        }
+        title={<Typography variant="h6">Welcome, {firstName}</Typography>}
       />
       <Divider />
       <CardContent>
+        <AppHeaderActions
+          dataViewType={dataViewType}
+          setDataViewType={setDataViewType}
+          onAddEntryClick={onAddEntryClick}
+        />
         {dataViewType === "chart" && (
           <TableContainer>
             <Table

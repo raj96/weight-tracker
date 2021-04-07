@@ -1,9 +1,9 @@
 import { Button, ButtonGroup, Grid, Tooltip } from "@material-ui/core";
 import { AddBox, TableChart, Timeline } from "@material-ui/icons";
 
-function AppHeader({ dataViewType, setDataViewType, onAddEntryClick }) {
+function AppHeaderActions({ dataViewType, setDataViewType, onAddEntryClick }) {
   return (
-    <Grid container spacing={8}>
+    <Grid container justify="space-between" style={{ marginBottom: "5%" }}>
       <Grid item>
         <ButtonGroup disableElevation disableRipple variant="contained">
           <Tooltip title="Tabular View">
@@ -33,4 +33,4 @@ function AppHeader({ dataViewType, setDataViewType, onAddEntryClick }) {
   );
 }
 
-export default AppHeader;
+export default AppHeaderActions;

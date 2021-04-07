@@ -36,7 +36,7 @@ function AddWeightForm({ onClose, theme, user }) {
   };
   const [weight, setWeight] = useState(undefined);
   return (
-    <Card style={{ flex: 0.33 }}>
+    <Card style={{ flex: 0.5 }}>
       <CardHeader
         style={{
           backgroundColor: theme.palette.primary.main,
