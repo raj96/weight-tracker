@@ -43,7 +43,16 @@ import SignInForm from "./app/components/views/SignInForm";
 import AppHeader from "./app/components/views/AppScreen/AppHeader";
 import AddWeightForm from "./app/components/views/AddWeightForm";
 
-var firebaseConfig = {};
+var firebaseConfig = {
+  apiKey: process.env.REACT_APP_FB_APIKEY,
+  authDomain: process.env.REACT_APP_FB_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FB_PROJECTID,
+  storageBucket: process.env.REACT_APP_FB_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FB_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FB_APPID,
+};
+
+console.log(process.env);
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
