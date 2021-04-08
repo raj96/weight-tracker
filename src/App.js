@@ -231,7 +231,7 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
           <div style={{ width: "100%", height: "50vh" }}>
             <ResponsiveContainer>
               <LineChart data={data} width="100%" height="400px">
-                <CartesianGrid />
+                <CartesianGrid strokeDasharray="2 2" />
                 <XAxis
                   dataKey="date"
                   tickFormatter={(tick) => {
@@ -247,7 +247,7 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
                   }}
                 />
                 <Tooltip />
-                <Line dataKey="weight" fill="#000" />
+                <Line type="natural" dataKey="weight" fill="#000" />
               </LineChart>
             </ResponsiveContainer>
           </div>
