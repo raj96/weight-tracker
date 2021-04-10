@@ -1,3 +1,5 @@
+import "./tooltip.css";
+
 import {
   Backdrop,
   Card,
@@ -16,8 +18,8 @@ import {
   TableHead,
   TableRow,
   ThemeProvider,
-  Tooltip,
   Typography,
+  withTheme,
 } from "@material-ui/core";
 import {
   CartesianGrid,
@@ -26,6 +28,7 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
+  Tooltip,
 } from "recharts";
 import { Delete } from "@material-ui/icons";
 import { red } from "@material-ui/core/colors";
@@ -86,7 +89,10 @@ function App() {
             date: doc.data()?.created_on?.toDate(),
           })
         );
-        setWtData(data);
+
+        setWtData(
+          data.sort((a, b) => a.created_on.seconds < b.created_on.seconds)
+        );
         setLoading(false);
       });
     return unsubscribe;
@@ -231,7 +237,6 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
           <div style={{ width: "100%", height: "50vh" }}>
             <ResponsiveContainer>
               <LineChart data={data} width="100%" height="400px">
-                <CartesianGrid strokeDasharray="2 2" />
                 <XAxis
                   dataKey="date"
                   tickFormatter={(tick) => {
@@ -246,8 +251,9 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
                     position: "insideLeft",
                   }}
                 />
-                <Tooltip />
-                <Line type="natural" dataKey="weight" fill="#000" />
+                <Line type="monotone" dataKey="weight" fill="#000" />
+                <Tooltip content={<ThemedToolTip />} />
+                <CartesianGrid horizontal={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -256,5 +262,36 @@ function AppScreen({ user, onAddEntryClick, data, loading }) {
     </Card>
   );
 }
+
+function CustomTooltip({ active, payload, theme }) {
+  if (!active || !payload) return null;
+
+  const { date, weight } = payload[0].payload;
+  const [day, month, year] = date
+    .toLocaleDateString("default", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    })
+    .split(" ");
+  const dateString = `${day}, ${month}/${year}`;
+
+  return (
+    <div className="tooltip-container">
+      <div
+        className="tooltip-header"
+        style={{
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+        }}
+      >
+        {dateString}
+      </div>
+      <div className="tooltip-body">{weight} kg</div>
+    </div>
+  );
+}
+
+const ThemedToolTip = withTheme(CustomTooltip);
 
 export default App;
